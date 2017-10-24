@@ -1,0 +1,45 @@
+.fish.chart .legend .item text, .fish.chart .axis .labels text {
+  color: #333333;
+  font-size: 12px;
+  cursor: pointer;
+  fill: #333333;
+  font-weight: bold;
+}
+.fish.chart .axis .labels text {
+  font-weight: normal;
+  color: #666;
+  fill: #666;
+  text-anchor: middle;
+  dominant-baseline: central;
+}
+
+.fish.chart .title {
+  color: #337ccb;
+  fill: #337ccb;
+  font-size: 16px;
+  font-weight: bold;
+}
+.fish.chart .subtitle {
+  font-size: 12px;
+  color: #999;
+  fill: #999;
+}
+
+.fish.chart .axis .grid path {
+  fill: none;
+  stroke-width: 1px;
+  stroke: rgba(0, 0, 0, 0.05);
+}
+/*.fish.chart .y-axis .grid path:last-child {*/
+  /*stroke: rgba(0, 0, 0, 0.1);*/
+/*}*/
+
+.fish.chart .line {
+  stroke-width: 2px;
+  fill: none;
+  /*opacity: .6;*/
+}
+/*.fish.chart .point:hover {*/
+  /*stroke: rgba(0, 0, 0, .1);*/
+  /*stroke-width: 10px;*/
+/*}*/
