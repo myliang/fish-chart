@@ -4,8 +4,9 @@
     <g :transform="transform">
       <g class="ring" v-for="shapeGroup in shapeGroups">
         <path :d="shapeGroup.path" :fill="shapeGroup.color"></path>
-        <path :d="shapeGroup.line"></path>
-        <!--<text><tspan>{{shapeGroup.name}} : {{shapeGroup.v/total}}%</tspan></text>-->
+        <text :x="shapeGroup.textPoint.x" :y="shapeGroup.textPoint.y" :style="{'text-anchor': shapeGroup.textAnchor}">
+          <tspan>{{shapeGroup.name}} : {{(shapeGroup.v/vTotal * 100).toFixed(2)}}%</tspan>
+        </text>
       </g>
     </g>
   </svg>
@@ -41,19 +42,36 @@
       // 弧度起点坐标
       let start = {x: 0, y: -r}
       let start1 = {x: 0, y: -innerR}
-      let degree = 0.0 // 累加角度
+      let degree = 0.0
+      let textDegree = 0.0
       this.data.forEach((item, index) => {
         let currentDegree = (item.v / this.vTotal) * 360 // 占用多少度
+        // 计算环位置
         degree += currentDegree
-        let rad = degree * (Math.PI / 180)
-        let endp = {x: r * Math.sin(rad), y: -r * Math.cos(rad)}
-        let endp1 = {x: innerR * Math.sin(rad), y: -innerR * Math.cos(rad)}
+        let endp = new Circle(r).getPointFromDegree(degree)
+        let endp1 = new Circle(innerR).getPointFromDegree(degree)
         // console.log(endp, ':::', endp1)
-        let path = `M ${start.x} ${start.y} A ${r} ${r} 0 ${currentDegree > 180 ? 1 : 0} 1 ${endp.x} ${endp.y} L ${endp1.x} ${endp1.y} A ${innerR} ${innerR} 0 ${currentDegree > 180 ? 1 : 0} 0 ${start1.x} ${start1.y} Z`
+        let path = ['M', start.x, start.y, 'A', r, r, 0, currentDegree > 180 ? 1 : 0, 1, endp.x, endp.y, 'L', endp1.x, endp1.y, 'A', innerR, innerR, 0, currentDegree > 180 ? 1 : 0, 0, start1.x, start1.y, 'z'].join(' ')
         start = endp
         start1 = endp1
-        this.shapeGroups.push(Object.assign({}, item, {path: path, color: item.color || _color.get(index)}))
+
+        // 计算文字位置
+        textDegree += currentDegree / 2
+        let textAnchor = textDegree > 180 ? 'end' : 'start'
+        let tendp = new Circle(r + 10).getPointFromDegree(textDegree)
+        textDegree += currentDegree / 2
+        this.shapeGroups.push(Object.assign({textPoint: tendp, textAnchor: textAnchor}, item, {path: path, color: item.color || _color.get(index)}))
       })
+    }
+  }
+
+  export class Circle {
+    constructor (r) {
+      this.r = r
+    }
+    getPointFromDegree (degree) {
+      let rad = degree * (Math.PI / 180)
+      return {x: this.r * Math.sin(rad), y: -this.r * Math.cos(rad)}
     }
   }
 </script>
