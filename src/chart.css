@@ -34,10 +34,15 @@
   /*stroke: rgba(0, 0, 0, 0.1);*/
 /*}*/
 
-.fish.chart .line {
+.fish.chart .line path:first-child {
   stroke-width: 2px;
   fill: none;
-  /*opacity: .6;*/
+}
+.fish.chart .column rect:hover, .fish.chart .line rect:hover {
+  opacity: .8;
+}
+.fish.chart .ring path:first-child:hover {
+  opacity: .8;
 }
 /*.fish.chart .point:hover {*/
   /*stroke: rgba(0, 0, 0, .1);*/

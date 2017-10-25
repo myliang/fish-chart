@@ -5,8 +5,8 @@
     <fish-chart-axis :labels="yLabels" vertical></fish-chart-axis>
     <fish-chart-legend :data="legends"></fish-chart-legend>
     <g :transform="transform">
-      <g v-for="shapeGroup in shapeGroups">
-        <path :d="shapeGroup.line" :stroke="shapeGroup.color" class="line"></path>
+      <g v-for="shapeGroup in shapeGroups" class="line">
+        <path :d="shapeGroup.line" :stroke="shapeGroup.color"></path>
         <rect v-for="point in shapeGroup.points" class="point"
             :x="point.x - pointSize/2" :y="point.y - pointSize/2" :height="pointSize" :width="pointSize"
             :fill="shapeGroup.color" :rx="pointSize/2" :ry="pointSize/2"></rect>
@@ -28,7 +28,7 @@
     name: 'fish-chart-line',
     props: {
       title: { type: String, required: true },
-      subtitle: { type: String, required: true },
+      subtitle: { type: String, default: '' },
       labels: { type: Array, required: true },
       pointSize: { type: Number, default: 8 },
       data: { type: Array, required: true } // [{name: '', data: []}]

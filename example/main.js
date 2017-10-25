@@ -3,7 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 
-import fishChart from './index'
+import fishChart from '../src/index'
 Vue.use(fishChart)
 
 Vue.config.productionTip = false

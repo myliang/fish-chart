@@ -5,8 +5,8 @@
     <fish-chart-axis :labels="yLabels" type="column" vertical></fish-chart-axis>
     <fish-chart-legend :data="legends" :radius="2"></fish-chart-legend>
     <g :transform="transform">
-      <g v-for="shapeGroup in shapeGroups">
-        <rect v-for="rect in shapeGroup.rects" class="rect"
+      <g v-for="shapeGroup in shapeGroups" class="column">
+        <rect v-for="rect in shapeGroup.rects"
               :x="rect.x" :y="rect.y" :height="rect.h" :width="columnWidth"
               :fill="shapeGroup.color" :rx="0" :ry="0"></rect>
       </g>
@@ -28,7 +28,7 @@
     name: 'fish-chart-column',
     props: {
       title: { type: String, required: true },
-      subtitle: { type: String, required: true },
+      subtitle: { type: String, default: '' },
       labels: { type: Array, required: true },
       columnWidth: { type: Number, default: 8 },
       data: { type: Array, required: true } // [{name: '', data: []}]

@@ -13,7 +13,7 @@ module.exports = {
   _space: {
     left: 80,
     bottom: 80,
-    top: 80,
+    top: 60,
     right: 40
   }
 }
