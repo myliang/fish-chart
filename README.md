@@ -1,17 +1,20 @@
 # fish-chart
 
-> vue2 chart project
+> 一个给予vue2, svg的简单图表组件
 
-## Build Setup
-
+## 安装
 ``` bash
 npm install fish-chart
+```
 
+## 使用
+```
 # main.js
 import FishChart from 'fish-chart'
 Vue.user(FishChart)
 ```
-## 使用
+
+## 实例
 1. 线图
 ``` xml
 <template>
@@ -61,7 +64,7 @@ data () {
 </script>
 ```
 
-2. 环图
+3. 环图
 ``` xml
 <template>
   <div style="width: 1000px; height: 500px; border: 1px solid #ccc; margin-bottom: 10px;">
@@ -84,3 +87,10 @@ data () {
 }
 </script>
 ```
+
+## TODOS
+* 丰富图表类型
+* 优化相关代码
+
+## LICENSE
+MIT
