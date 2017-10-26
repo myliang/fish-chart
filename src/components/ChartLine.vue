@@ -5,12 +5,12 @@
     <fish-chart-axis :labels="yLabels" vertical></fish-chart-axis>
     <fish-chart-legend :data="legends"></fish-chart-legend>
     <g :transform="transform">
-      <g v-for="shapeGroup in shapeGroups" class="line">
-        <path :d="shapeGroup.line" :stroke="shapeGroup.color"></path>
-        <rect v-for="point in shapeGroup.points" class="point"
-            :x="point.x - pointSize/2" :y="point.y - pointSize/2" :height="pointSize" :width="pointSize"
-            :fill="shapeGroup.color" :rx="pointSize/2" :ry="pointSize/2"></rect>
-      </g>
+      <fish-chart-base-line
+        :points="shapeGroup.points"
+        :pointSize="pointSize"
+        :color="shapeGroup.color"
+        :key="index"
+        v-for="(shapeGroup, index) in shapeGroups"></fish-chart-base-line>
     </g>
   </svg>
 </template>
@@ -20,8 +20,10 @@
   import FishChartLegend from './base/Legend.vue'
   import FishChartAxis from './base/Axis.vue'
   import FishChartTitle from './base/Title.vue'
+  import FishChartBaseLine from './base/Line.vue'
   export default {
     components: {
+      FishChartBaseLine,
       FishChartTitle,
       FishChartAxis,
       FishChartLegend},
@@ -55,13 +57,10 @@
       let xSpacing = (width - _space.left - _space.right) / (this.labels.length - 1)
       this.data.forEach((item, i) => {
         const color = item.color || _color.get(i)
-        let line = []
         const points = item.data.map((v, index) => {
-          let p = { y: -v * pixScales, x: index * xSpacing }
-          line.push(index === 0 ? 'M' : 'L', p.x, p.y)
-          return p
+          return { y: -v * pixScales, x: index * xSpacing }
         })
-        this.shapeGroups.push({points: points, color: color, line: line.join(' ')})
+        this.shapeGroups.push({points: points, color: color})
       })
     }
   }
