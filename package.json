@@ -6,6 +6,10 @@
   "private": false,
   "license": "MIT",
   "main": "./src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/myliang/fish-chart.git"
+  },
   "scripts": {
     "dev": "node build/dev-server.js",
     "start": "npm run dev",
